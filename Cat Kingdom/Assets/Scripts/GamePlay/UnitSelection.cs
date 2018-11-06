@@ -15,6 +15,11 @@ public class UnitSelection : Singleton<UnitSelection> {
 	[SerializeField] List<SelectableObject> selectedObjects;
 	[SerializeField] Rect currentRect;
 
+	public List<SelectableObject> SelectedObjects
+	{
+		get { return selectedObjects; }
+	}
+
 	void Start() {
 		InitiateSingleton ();
 		InitializeTexture ();
