@@ -8,36 +8,52 @@ public class UnitMovement : MonoBehaviour
 	[SerializeField] Vector3 destination;
 	[SerializeField] float speed;
 	[SerializeField] bool shouldMove;
-    [SerializeField] float percentageDone;
+	[SerializeField] AfterMoveAction afterMoveAction;
+	[SerializeField] Transform model;
+	[SerializeField] Rigidbody rigidbody;
 
-	public bool ShouldMove
-	{
+	public delegate void AfterMoveAction(GameObject obj);
+
+	public bool ShouldMove {
 		get { return this.shouldMove; }
 		set { this.shouldMove = value; }
 	}
 
-	public void MoveTowards(Vector3 destination)
-	{
+	public void MoveTowards(Vector3 destination, AfterMoveAction action = null) {
 	    startingPosition = transform.position;
 		this.destination = destination;
 	    this.destination.y = startingPosition.y;
-		shouldMove = true;
-	    percentageDone = 0;
+		afterMoveAction = action;
 
+		transform.LookAt (this.destination);
+		shouldMove = true;
 	}
 
-	void Update ()
-	{
-		if (shouldMove)
-		{
-		    transform.position = Vector3.Lerp(startingPosition, destination, percentageDone);
+	public void StopMoving() {
+		shouldMove = false;
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
+	}
 
-			if (percentageDone > 1)
-			{
+	void FixedUpdate () {
+		if (shouldMove) {
+			transform.LookAt (this.destination);
+
+			float distance = Vector3.Distance (transform.position, destination);
+
+			float movement = speed * Time.deltaTime;
+
+			if (distance > movement) {
+				rigidbody.velocity = transform.forward * movement;
+			} 
+			else {
+				rigidbody.velocity = transform.forward * distance * Time.deltaTime;
+				//rigidbody.MovePosition(transform.position + transform.forward * distance * Time.deltaTime);
 				shouldMove = false;
+				if (afterMoveAction != null) {
+					afterMoveAction (gameObject);
+				}
 			}
-
-		    percentageDone += 1 / speed * Time.deltaTime;
 		}
 	}
 }

@@ -38,8 +38,20 @@ public class BuildingRecipe : ScriptableObject {
 
 	[SerializeField] string buildingName;
 	[SerializeField] Sprite image;
+	[SerializeField] int maximumWorkers;
+	[SerializeField] int tiles;
+	[SerializeField] int constructionTime;
 	[SerializeField] GameObject prefab;
 	[SerializeField] List<Pair> materials;
+
+	public int GetCost(string type) {
+		for (int i = 0; i < materials.Count; i++) {
+			if (materials [i].Type == type) {
+				return materials [i].Cost;
+			}
+		}
+		return -1;
+	}
 
 	public string BuildingName {
 		get {
@@ -62,6 +74,24 @@ public class BuildingRecipe : ScriptableObject {
 	public GameObject Prefab {
 		get {
 			return this.prefab;
+		}
+	}
+
+	public int ConstructionTime {
+		get {
+			return this.constructionTime;
+		}
+	}
+
+	public int MaximumWorkers {
+		get {
+			return this.maximumWorkers;
+		}
+	}
+
+	public int Tiles {
+		get {
+			return this.tiles;
 		}
 	}
 }

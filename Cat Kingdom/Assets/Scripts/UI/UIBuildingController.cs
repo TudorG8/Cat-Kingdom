@@ -7,6 +7,7 @@ public class UIBuildingController : MonoBehaviour {
 	[SerializeField] GameObject buildingPanelPrefab;
 	[SerializeField] Transform buildingPanel;
 	[SerializeField] LayerMask rayMask;
+	[SerializeField] List<BuildingPanel> panels;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,20 @@ public class UIBuildingController : MonoBehaviour {
 			buildingPanelScript.Image.sprite = recipe.Image;
 			buildingPanelScript.OnClick.AddListener	(BuildingPlacement.Instance.BuildingSelected);
 			buildingPanelScript.Recipe = recipe;
+			buildingPanelScript.Cost.text = "Wood: " + buildingPanelScript.Recipe.GetCost ("Wood").ToString ();
+
+			panels.Add (buildingPanelScript);
+		}
+	}
+
+	void Update() {
+		for (int i = 0; i < panels.Count; i++) {
+			if (UIResourceManager.Instance.Wood < panels [i].Recipe.GetCost("Wood")) {
+				panels [i].Image.color = Color.red;
+			} 
+			else {
+				panels [i].Image.color = Color.white;
+			}
 		}
 	}
 }

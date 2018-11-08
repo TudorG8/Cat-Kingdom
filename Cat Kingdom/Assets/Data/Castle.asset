@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Name: Castle
   m_EditorClassIdentifier: 
   buildingName: Castle
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  prefab: {fileID: 1021307413361076, guid: 4ff811fc079278e43b7a283e04017298, type: 2}
+  image: {fileID: 21300000, guid: 5a3407a69c8da504483038aa5f89b72f, type: 3}
+  maximumWorkers: 0
+  tiles: 4
+  constructionTime: 10
+  prefab: {fileID: 1522946725020190, guid: 3f889a656a13c1c46a5f41bdcbb1ab5b, type: 2}
   materials:
   - type: Stone
     cost: 100

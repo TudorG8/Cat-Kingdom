@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Name: House
   m_EditorClassIdentifier: 
   buildingName: House
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  prefab: {fileID: 1734251938308114, guid: a198a3fb9a66d804c836eab897843928, type: 2}
+  image: {fileID: 21300000, guid: f52ab67f80bf7464895382b5fff490fd, type: 3}
+  maximumWorkers: 0
+  tiles: 1
+  constructionTime: 5
+  prefab: {fileID: 1409941299132226, guid: 487eb940a72b7ef44ab47604a7085ca3, type: 2}
   materials:
   - type: Wood
     cost: 20

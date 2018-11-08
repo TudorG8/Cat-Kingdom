@@ -12,6 +12,7 @@ public class BuildingPanel : MonoBehaviour {
 	[SerializeField] Image image;
 	[SerializeField] BuildingRecipe recipe;
 	[SerializeField] BuildingPanelEvent onClick;
+	[SerializeField] Text cost;
 
 	public Text BuildingName {
 		get {
@@ -31,6 +32,12 @@ public class BuildingPanel : MonoBehaviour {
 		}
 		set {
 			this.recipe = value;
+		}
+	}
+
+	public Text Cost {
+		get {
+			return this.cost;
 		}
 	}
 

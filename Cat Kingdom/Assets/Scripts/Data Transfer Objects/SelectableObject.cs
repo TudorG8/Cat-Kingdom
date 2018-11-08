@@ -6,6 +6,7 @@ public class SelectableObject : MonoBehaviour {
 	[SerializeField] GameObject selectionBase;
 	[SerializeField] string name;
 	[SerializeField] Camera displayCamera;
+	[SerializeField] Indicator indicator;
 
 	public GameObject SelectionBase {
 		get {
@@ -25,11 +26,35 @@ public class SelectableObject : MonoBehaviour {
 		}
 	}
 
-	void OnBecameVisible() {
+	public  Indicator Indicator {
+		get {
+			return this.indicator;
+		}
+		set {
+			indicator = value;
+		}
+	}
+
+	void Start() {
+		indicator = null;
+	}
+
+	public void StopCurrentAction() {
+		ResourceGathering gatheringModule = GetComponent<ResourceGathering> ();
+		if (gatheringModule != null && gatheringModule.IsGathering) {
+			gatheringModule.Reset ();
+		}
+
+		if(indicator != null)
+			indicator.Disconnect ();
+		indicator = null;
+	}
+
+	public void OnBecameVisible() {
 		UnitSelection.Instance.NewObjectVisible (this);
 	}
 
-	void OnBecameInvisible() {
+	public void OnBecameInvisible() {
 		UnitSelection.Instance.ObjectWentInvisible (this);
 	}
 
