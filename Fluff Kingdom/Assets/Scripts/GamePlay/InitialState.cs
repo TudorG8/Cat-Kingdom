@@ -11,7 +11,7 @@ public class InitialState : MonoBehaviour {
 		buildingScript.ConstructionBar.gameObject.SetActive (false);
 		buildingScript.IsBuilding = false;
 		buildingScript.PercentageDone = 100;
-		BuildingPlacement.Instance.Buildings.Add (buildingScript);
+		BuildingManager.Instance.Buildings.Add (buildingScript);
 
 		int x = (int)(buildingObj.transform.position.x);
 		int z = (int)(buildingObj.transform.position.z);

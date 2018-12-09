@@ -30,6 +30,8 @@ public class UnitMovement : MonoBehaviour
 		shouldMove = true;
 
 		navMeshAgent.destination = destination;
+
+		navMeshAgent.isStopped = false;
 	}
 
 	public void StopMoving() {
@@ -47,6 +49,7 @@ public class UnitMovement : MonoBehaviour
 			if (distance < 0.1f) {
 				if (afterMoveAction != null) {
 					afterMoveAction (gameObject);
+					navMeshAgent.isStopped = true;
 					transform.LookAt (this.destination);
 				}
 				shouldMove = false;

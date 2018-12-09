@@ -1963,7 +1963,7 @@ MonoBehaviour:
   percentageDone: 0
   constructionBar: {fileID: 114145161414445292}
   distanceToMove: 0
-  recipe: {fileID: 0}
+  recipe: {fileID: 11400000, guid: bd0cde33fa5427843b4c1fb10a2de85f, type: 2}
   topPoint: {fileID: 4784265545784436}
   workers: []
   spotGenerator: {fileID: 114566294214577572}

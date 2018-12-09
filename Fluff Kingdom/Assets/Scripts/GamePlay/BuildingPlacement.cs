@@ -9,13 +9,6 @@ public class BuildingPlacement : Singleton<BuildingPlacement> {
 	[SerializeField] LayerMask rayMask;
 	[SerializeField] float transparency;
 	[SerializeField] float gridSize;
-	[SerializeField] List<Building> buildings;
-
-	public List<Building> Buildings {
-		get {
-			return this.buildings;
-		}
-	}
 
 	void Awake() {
 		InitiateSingleton ();

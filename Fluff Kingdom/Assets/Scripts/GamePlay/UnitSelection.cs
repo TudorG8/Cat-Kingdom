@@ -14,13 +14,23 @@ public class UnitSelection : Singleton<UnitSelection> {
 	[SerializeField] List<SelectableObject> visibleObjects;
 	[SerializeField] List<SelectableObject> selectedObjects;
 	[SerializeField] Rect currentRect;
+	[SerializeField] List<SelectableObject> workers;
+
+	public List<SelectableObject> Workers {
+		get {
+			return this.workers;
+		}
+		set {
+			workers = value;
+		}
+	}
 
 	public List<SelectableObject> SelectedObjects
 	{
 		get { return selectedObjects; }
 	}
 
-	void Start() {
+	void Awake() {
 		InitiateSingleton ();
 		InitializeTexture ();
 	}
@@ -105,6 +115,9 @@ public class UnitSelection : Singleton<UnitSelection> {
 
 		for (int i = 0; i < visibleObjects.Count; i++) {
 			SelectableObject obj = visibleObjects [i]; 
+			if (!obj.CanBeSelected)
+				continue;
+			
 			Vector3 position = Camera.main.WorldToScreenPoint (obj.transform.position);
 			position.y = Screen.height - position.y;
 			if (currentRect.Contains (position)) {

@@ -105,7 +105,11 @@ public class CommandGiver : Singleton<CommandGiver> {
 
 			UnitMovement unitMovement = selectedObject.GetComponent<UnitMovement> ();
 			if (unitMovement != null) {
-				unitMovement.MoveTowards (actualDestination);
+				unitMovement.MoveTowards (actualDestination, (gameObject) => {
+					Vector3 lookPosition = destination;
+					lookPosition.y = gameObject.transform.position.y;
+					gameObject.transform.LookAt(lookPosition);
+				});
 			}
 		}
 	}

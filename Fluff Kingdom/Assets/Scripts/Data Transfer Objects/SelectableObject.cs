@@ -7,6 +7,9 @@ public class SelectableObject : MonoBehaviour {
 	[SerializeField] string name;
 	[SerializeField] Camera displayCamera;
 	[SerializeField] Indicator indicator;
+	[SerializeField] UnitStats unitStats;
+	[SerializeField] bool canBeSelected = true;
+
 
 	public GameObject SelectionBase {
 		get {
@@ -35,6 +38,24 @@ public class SelectableObject : MonoBehaviour {
 		}
 	}
 
+	public UnitStats UnitStats {
+		get {
+			return this.unitStats;
+		}
+		set {
+			unitStats = value;
+		}
+	}
+
+	public bool CanBeSelected {
+		get {
+			return this.canBeSelected;
+		}
+		set {
+			canBeSelected = value;
+		}
+	}
+
 	void Start() {
 		indicator = null;
 	}
@@ -59,7 +80,9 @@ public class SelectableObject : MonoBehaviour {
 	}
 
 	public void Select() {
-		selectionBase.SetActive (true);
+		if (canBeSelected) {
+			selectionBase.SetActive (true);
+		}
 	}
 
 	public void Deselect() {

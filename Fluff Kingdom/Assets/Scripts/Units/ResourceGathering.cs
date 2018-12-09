@@ -22,20 +22,7 @@ public class ResourceGathering : MonoBehaviour {
 	}
 
 	void SelectGatheringPoint() {
-		List<Building> buildings = BuildingPlacement.Instance.Buildings;
-		Building building = null;
-		float distance = float.MaxValue;
-		for (int i = 0; i < buildings.Count; i++) {
-			if (buildings [i].name.Contains ("Castle")) {
-				float newDistance = Vector3.Distance(transform.position, buildings[i].transform.position);
-
-				if (newDistance < distance) {
-					distance = newDistance;
-					building = buildings [i];
-				}
-			}
-		}
-		deliverDestination = building.gameObject;
+		deliverDestination = BuildingManager.Instance.GetClosestBuilding(BuildingType.Castle);
 	}
 
 	public void StartGathering(Resource resource) {

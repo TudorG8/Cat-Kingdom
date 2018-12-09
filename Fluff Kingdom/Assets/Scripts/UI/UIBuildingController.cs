@@ -17,7 +17,7 @@ public class UIBuildingController : MonoBehaviour {
 			newPanel.transform.SetParent (buildingPanel, false);
 
 			BuildingPanel buildingPanelScript = newPanel.GetComponent<BuildingPanel> ();
-			buildingPanelScript.BuildingName.text = recipe.BuildingName;
+			buildingPanelScript.BuildingName.text = recipe.BuildingName.ToString();
 			buildingPanelScript.Image.sprite = recipe.Image;
 			buildingPanelScript.OnClick.AddListener	(BuildingPlacement.Instance.BuildingSelected);
 			buildingPanelScript.Recipe = recipe;

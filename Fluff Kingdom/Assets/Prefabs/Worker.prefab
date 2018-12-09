@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1436837299756006}
   m_IsPrefabParent: 1
+--- !u!1 &1078234203204410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4992995038914722}
+  m_Layer: 0
+  m_Name: Back Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1131670533818398
 GameObject:
   m_ObjectHideFlags: 1
@@ -23,6 +38,21 @@ GameObject:
   - component: {fileID: 114713700295575522}
   m_Layer: 0
   m_Name: Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1159700451048630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4532699542155054}
+  m_Layer: 0
+  m_Name: Off Hand Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,6 +111,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1421117362296554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4640288914984770}
+  m_Layer: 0
+  m_Name: Main Hand Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1436837299756006
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +139,7 @@ GameObject:
   - component: {fileID: 114315797867225680}
   - component: {fileID: 54586077777663130}
   - component: {fileID: 195143009953684878}
+  - component: {fileID: 114264228832619490}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -154,6 +200,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1722512554997096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4312639249366830}
+  m_Layer: 0
+  m_Name: Hat Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1787444914724826
 GameObject:
   m_ObjectHideFlags: 1
@@ -229,6 +290,45 @@ Transform:
   m_Father: {fileID: 4685982769716744}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 30.716002, y: 180.00002, z: 0}
+--- !u!4 &4312639249366830
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722512554997096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4685982769716744}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4532699542155054
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1159700451048630}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.366, y: 0.502, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4685982769716744}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4640288914984770
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421117362296554}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.366, y: 0.502, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4685982769716744}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4685982769716744
 Transform:
   m_ObjectHideFlags: 1
@@ -236,7 +336,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436837299756006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.09, y: 0.9468217, z: 5.040521}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4226392207636042}
@@ -244,6 +344,10 @@ Transform:
   - {fileID: 4752445258907404}
   - {fileID: 224803070342059724}
   - {fileID: 4298343499050646}
+  - {fileID: 4640288914984770}
+  - {fileID: 4532699542155054}
+  - {fileID: 4992995038914722}
+  - {fileID: 4312639249366830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,6 +376,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4685982769716744}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4992995038914722
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078234203204410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.817, z: -0.318}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4685982769716744}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20834170512102156
 Camera:
@@ -579,6 +696,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114264228832619490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436837299756006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c0992649444494cad2712e14e0419b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHitPoints: 0
+  unitClass: {fileID: 11400000, guid: fd599848794d3b542b464aade5533586, type: 2}
+  mainHandSpot: {fileID: 4640288914984770}
+  offHandSpot: {fileID: 4532699542155054}
+  backSpot: {fileID: 4992995038914722}
+  hatSpot: {fileID: 4312639249366830}
 --- !u!114 &114315797867225680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -615,6 +749,8 @@ MonoBehaviour:
   name: Worker
   displayCamera: {fileID: 20834170512102156}
   indicator: {fileID: 0}
+  unitStats: {fileID: 114264228832619490}
+  canBeSelected: 1
 --- !u!114 &114571206119063708
 MonoBehaviour:
   m_ObjectHideFlags: 1

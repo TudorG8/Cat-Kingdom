@@ -36,7 +36,7 @@ public class BuildingRecipe : ScriptableObject {
 	}
 	#endif
 
-	[SerializeField] string buildingName;
+	[SerializeField] BuildingType buildingName;
 	[SerializeField] Sprite image;
 	[SerializeField] int maximumWorkers;
 	[SerializeField] int tiles;
@@ -53,7 +53,7 @@ public class BuildingRecipe : ScriptableObject {
 		return -1;
 	}
 
-	public string BuildingName {
+	public BuildingType BuildingName {
 		get {
 			return this.buildingName;
 		}

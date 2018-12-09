@@ -126,7 +126,7 @@ public class Building : MonoBehaviour {
 			if (percentageDone > 100) {
 				constructionBar.gameObject.SetActive (false);
 				isBuilding = false;
-				BuildingPlacement.Instance.Buildings.Add (this);
+				BuildingManager.Instance.Buildings.Add (this);
 			}
 		}
 	}
