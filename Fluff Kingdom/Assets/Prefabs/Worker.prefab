@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4992995038914722}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Back Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 224920457403998348}
   - component: {fileID: 222442009052275204}
   - component: {fileID: 114713700295575522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4532699542155054}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Off Hand Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 23413324411398204}
   - component: {fileID: 136383560152240420}
   - component: {fileID: 114642003522375282}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4302255156516578}
   - component: {fileID: 20834170512102156}
   - component: {fileID: 124489450204709466}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 224778143186735504}
   - component: {fileID: 222438998553196958}
   - component: {fileID: 114008697722092334}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4640288914984770}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Main Hand Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 54586077777663130}
   - component: {fileID: 195143009953684878}
   - component: {fileID: 114264228832619490}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 114008761410719334}
   - component: {fileID: 114579783744601004}
   - component: {fileID: 114571206119063708}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fill Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 4752445258907404}
   - component: {fileID: 33151811962914198}
   - component: {fileID: 23935669442331744}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,15 +191,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298343499050646}
-  - component: {fileID: 33599281733351048}
-  - component: {fileID: 23227582298099894}
-  m_Layer: 0
-  m_Name: Contents
+  m_Layer: 12
+  m_Name: Contents Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1722512554997096
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +206,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4312639249366830}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hat Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +223,7 @@ GameObject:
   - component: {fileID: 224257185609970668}
   - component: {fileID: 222176836485346470}
   - component: {fileID: 114192031012869104}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +241,7 @@ GameObject:
   - component: {fileID: 33087098663345946}
   - component: {fileID: 23683636284770794}
   - component: {fileID: 65022443320479816}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,8 +269,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706060938203068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.717, z: 0.704}
-  m_LocalScale: {x: 0.43297577, y: 0.43297577, z: 0.43297577}
+  m_LocalPosition: {x: 0, y: 0.717, z: 0.748}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4685982769716744}
   m_RootOrder: 4
@@ -426,41 +424,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!23 &23227582298099894
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706060938203068}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 4a9e3ae0441cc1f4888a317945c20271, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23413324411398204
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -476,7 +439,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: deb0b15d2c3a3e947896bb6308c61b01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -587,13 +550,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253130924742194}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33599281733351048
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706060938203068}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54586077777663130
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -708,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHitPoints: 0
-  unitClass: {fileID: 11400000, guid: fd599848794d3b542b464aade5533586, type: 2}
+  unitClass: {fileID: 11400000, guid: 059dc5ebc82a2ed418242a97e94b31fd, type: 2}
   mainHandSpot: {fileID: 4640288914984770}
   offHandSpot: {fileID: 4532699542155054}
   backSpot: {fileID: 4992995038914722}
@@ -727,13 +683,14 @@ MonoBehaviour:
   contentsGathered: 0
   isGathering: 0
   progressBar: {fileID: 114571206119063708}
-  contents: {fileID: 1706060938203068}
+  contentsPosition: {fileID: 4298343499050646}
   movementModule: {fileID: 114954781723807592}
   deliverDestination: {fileID: 0}
   selectableObject: {fileID: 114559150655710384}
   delivering: 0
   walkingToTarget: 0
   navMeshAgent: {fileID: 195143009953684878}
+  currentResource: 0
 --- !u!114 &114559150655710384
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -14,12 +14,12 @@ public class BuildingManager : Singleton<BuildingManager> {
 		}
 	}
 
-	public GameObject GetClosestBuilding(BuildingType type) {
+	public GameObject GetClosestBuilding(Transform place, List<BuildingType> types) {
 		Building building = null;
 		float distance = float.MaxValue;
 		for (int i = 0; i < buildings.Count; i++) {
-			if (buildings [i].Recipe.BuildingName == type) {
-				float newDistance = Vector3.Distance(transform.position, buildings[i].transform.position);
+			if (types.Contains(buildings [i].Recipe.BuildingName) && buildings[i].IsBuilding == false) {
+				float newDistance = Vector3.Distance(place.position, buildings[i].transform.position);
 
 				if (newDistance < distance) {
 					distance = newDistance;

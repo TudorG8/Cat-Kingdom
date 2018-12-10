@@ -37,9 +37,10 @@ public class BuildingRecipe : ScriptableObject {
 	#endif
 
 	[SerializeField] BuildingType buildingName;
-	[SerializeField] Sprite image;
+	[SerializeField] string description;
 	[SerializeField] int maximumWorkers;
 	[SerializeField] int tiles;
+	[SerializeField] int hitPoints;
 	[SerializeField] int constructionTime;
 	[SerializeField] GameObject prefab;
 	[SerializeField] List<Pair> materials;
@@ -65,12 +66,6 @@ public class BuildingRecipe : ScriptableObject {
 		}
 	}
 
-	public Sprite Image {
-		get {
-			return this.image;
-		}
-	}
-
 	public GameObject Prefab {
 		get {
 			return this.prefab;
@@ -92,6 +87,24 @@ public class BuildingRecipe : ScriptableObject {
 	public int Tiles {
 		get {
 			return this.tiles;
+		}
+	}
+
+	public string Description {
+		get {
+			return this.description;
+		}
+		set {
+			description = value;
+		}
+	}
+
+	public int HitPoints {
+		get {
+			return this.hitPoints;
+		}
+		set {
+			hitPoints = value;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CommandGiver : Singleton<CommandGiver> {
 	[SerializeField] LayerMask rayMask;
@@ -8,40 +9,52 @@ public class CommandGiver : Singleton<CommandGiver> {
 
 	public delegate void Action(SelectableObject selectedObject);
 
+	void Awake() {
+		InitiateSingleton ();
+	}
+
 	void Update () {
 		if (Input.GetMouseButtonDown(1)) {
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			Vector3 destination;
-
-			if (Physics.Raycast (ray, out hit, 100, rayMask)) {
-				destination = hit.point;
-			} 
-			else {
-				return;
-			}
-
-			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Building")) {
-				Building building = hit.rigidbody.gameObject.GetComponent<Building> ();
-
-				if (building != null) {
-					HandleBuildCommand (building);
-				}
-			} 
-			else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Resource")) {
-				Resource resource = hit.rigidbody.gameObject.GetComponent<Resource> ();
-
-				if (resource != null) {
-					HandleResourceCommand (resource);
-				}
-			}
-			else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
-				HandleMoveToCommand (destination);
-			}
+			ExecuteClickCommand ();
 		}
 	}
 
-	void HandleResourceCommand(Resource resource) {
+	public void ExecuteClickCommand() {
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Vector3 destination;
+
+		if (Physics.Raycast (ray, out hit, 100, rayMask)) {
+			destination = hit.point;
+		} 
+		else {
+			return;
+		}
+
+		if (EventSystem.current.IsPointerOverGameObject ()) {
+			return;
+		}
+
+		if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Building") && PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build) {
+			Building building = hit.rigidbody.gameObject.GetComponent<Building> ();
+			Debug.Log ("hm");
+			if (building != null && !building.Cancelled) {
+				HandleBuildCommand (building);
+			}
+		} 
+		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Resource")&& PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build) {
+			Resource resource = hit.rigidbody.gameObject.GetComponent<Resource> ();
+
+			if (resource != null) {
+				HandleResourceCommand (resource);
+			}
+		}
+		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
+			HandleMoveToCommand (destination);
+		}
+	}
+
+	public void HandleResourceCommand(Resource resource) {
 		List<SelectableObject> selectedObjects = UnitSelection.Instance.SelectedObjects;
 
 		for (int i = 0; i < selectedObjects.Count; i++) {
@@ -62,7 +75,7 @@ public class CommandGiver : Singleton<CommandGiver> {
 		}
 	}
 
-	void HandleBuildCommand(Building building) {
+	public void HandleBuildCommand(Building building) {
 		List<SelectableObject> selectedObjects = UnitSelection.Instance.SelectedObjects;
 
 		for (int i = 0; i < selectedObjects.Count; i++) {
@@ -86,9 +99,12 @@ public class CommandGiver : Singleton<CommandGiver> {
 				});
 			}
 		}
+
+		UnitSelection.Instance.DeselectObjects ();
+		UISelectionController.Instance.UpdateSelectedUnits (new List<SelectableObject>());
 	}
 
-	void HandleMoveToCommand(Vector3 destination) {
+	public void HandleMoveToCommand(Vector3 destination) {
 		List<SelectableObject> selectedObjects = UnitSelection.Instance.SelectedObjects;
 
 		Vector3 center = CalculateCenter (selectedObjects);

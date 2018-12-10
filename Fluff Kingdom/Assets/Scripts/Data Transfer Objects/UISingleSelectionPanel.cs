@@ -9,10 +9,50 @@ public class UISingleSelectionPanel : MonoBehaviour {
 	[SerializeField] RenderTexture renderTexture;
 	[SerializeField] Camera currentCamera;
 	[SerializeField] Text damage;
+	[SerializeField] Text description;
 	[SerializeField] Text health;
 	[SerializeField] Text jobName;
 	[SerializeField] Image jobImage;
 	[SerializeField] Transform selectedUnitParent;
+	[SerializeField] Transform jobPanel;
+	[SerializeField] Transform trainWorkerPanel;
+	[SerializeField] Transform jobAssignmentPanel;
+
+	public Transform JobAssignmentPanel {
+		get {
+			return this.jobAssignmentPanel;
+		}
+		set {
+			jobAssignmentPanel = value;
+		}
+	}
+
+	public Transform TrainWorkerPanel {
+		get {
+			return this.trainWorkerPanel;
+		}
+		set {
+			trainWorkerPanel = value;
+		}
+	}
+
+	public Text Description {
+		get {
+			return this.description;
+		}
+		set {
+			description = value;
+		}
+	}
+
+	public Transform JobPanel {
+		get {
+			return this.jobPanel;
+		}
+		set {
+			jobPanel = value;
+		}
+	}
 
 	public Text Name {
 		get {

@@ -1,27 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class UIBuildingController : MonoBehaviour {
 	[SerializeField] List<BuildingRecipe> recipes;
 	[SerializeField] GameObject buildingPanelPrefab;
+	[SerializeField] GameObject toolTip;
+	[SerializeField] GameObject woodCost;
+	[SerializeField] GameObject stoneCost;
 	[SerializeField] Transform buildingPanel;
+	[SerializeField] Transform tooltipPanel;
 	[SerializeField] LayerMask rayMask;
 	[SerializeField] List<BuildingPanel> panels;
 
 	// Use this for initialization
 	void Start () {
+		foreach (Transform child in tooltipPanel) { Destroy (child.gameObject);}
+
 		for (int i = 0; i < recipes.Count; i++) {
 			BuildingRecipe recipe = recipes [i];
 			GameObject newPanel = Instantiate (buildingPanelPrefab, buildingPanel.position, buildingPanelPrefab.transform.rotation);
+			Vector3 scale = newPanel.transform.localScale;
 			newPanel.transform.SetParent (buildingPanel, false);
+			newPanel.transform.localScale = scale;
+			newPanel.transform.SetAsLastSibling ();
+
+			GameObject newTooltip = Instantiate (toolTip, tooltipPanel.position, toolTip.transform.rotation);
+			newTooltip.transform.SetParent (tooltipPanel, false);
+			newTooltip.gameObject.SetActive (false);
+
+			Texture2D texture = AssetPreview.GetAssetPreview (recipe.Prefab);
+
+			UIBuildingTooltip tooltipScript = newTooltip.GetComponent<UIBuildingTooltip> ();
+			tooltipScript.Name.text = recipe.BuildingName.ToString();
+			tooltipScript.Description.text = recipe.Description;
+
+			int woodCostAmount  = recipe.GetCost ("Wood");
+			int stoneCostAmount = recipe.GetCost ("Stone");
+			if (woodCostAmount != -1) {
+				GameObject woodCostObj = Instantiate (woodCost, tooltipPanel.position, woodCost.transform.rotation);
+				scale = woodCostObj.transform.localScale;
+				woodCostObj.transform.SetParent (tooltipScript.Costs);
+				woodCostObj.transform.localScale = scale;
+
+				UIText textScript = woodCostObj.GetComponent<UIText> ();
+				textScript.Text.text = woodCostAmount.ToString();
+			}
+			if (stoneCostAmount != -1) {
+				GameObject stoneCostObj = Instantiate (stoneCost, tooltipPanel.position, stoneCost.transform.rotation);
+				scale = stoneCostObj.transform.localScale;
+				stoneCostObj.transform.SetParent (tooltipScript.Costs);
+				stoneCostObj.transform.localScale = scale;
+
+				UIText textScript = stoneCostObj.GetComponent<UIText> ();
+				textScript.Text.text = stoneCostAmount.ToString();
+			}
 
 			BuildingPanel buildingPanelScript = newPanel.GetComponent<BuildingPanel> ();
-			buildingPanelScript.BuildingName.text = recipe.BuildingName.ToString();
-			buildingPanelScript.Image.sprite = recipe.Image;
+			buildingPanelScript.Image.sprite = Sprite.Create(texture, new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f), 100.0f);
+			buildingPanelScript.OnClick.AddListener (((arg0) => { 
+				BuildingPlacement.Instance.ShouldLookForSpot = false;
+			}));
 			buildingPanelScript.OnClick.AddListener	(BuildingPlacement.Instance.BuildingSelected);
+
+			buildingPanelScript.MouseEvents.OnMouseOver.AddListener (() => {
+				newTooltip.gameObject.SetActive(true);
+				newTooltip.transform.position = newPanel.transform.position - new Vector3(175, 0);
+			});
+			buildingPanelScript.MouseEvents.OnMouseExit.AddListener (() => {
+				newTooltip.gameObject.SetActive(false);
+			});
+
 			buildingPanelScript.Recipe = recipe;
-			buildingPanelScript.Cost.text = "Wood: " + buildingPanelScript.Recipe.GetCost ("Wood").ToString ();
 
 			panels.Add (buildingPanelScript);
 		}

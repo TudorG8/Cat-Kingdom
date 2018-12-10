@@ -38,6 +38,7 @@ public class UnitMovement : MonoBehaviour
 		shouldMove = false;
 		rigidbody.velocity = Vector3.zero;
 		rigidbody.angularVelocity = Vector3.zero;
+		navMeshAgent.isStopped = true;
 	}
 
 	void FixedUpdate () {

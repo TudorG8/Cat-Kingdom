@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Building : MonoBehaviour {
 	
@@ -16,6 +17,48 @@ public class Building : MonoBehaviour {
 	[SerializeField] Transform model;
 	[SerializeField] Collider collider;
 	[SerializeField] NavMeshObstacle navMeshObstacle;
+	[SerializeField] Camera camera;
+	[SerializeField] int hitPoints;
+	[SerializeField] TextEmitter textEmitter;
+	[SerializeField] UnityEvent buildingFinished;
+	[SerializeField] UnityEvent buildingDestroyed;
+	[SerializeField] bool cancelled;
+
+	public bool Cancelled {
+		get {
+			return this.cancelled;
+		}
+		set {
+			cancelled = value;
+		}
+	}
+
+	public TextEmitter TextEmitter {
+		get {
+			return this.textEmitter;
+		}
+		set {
+			textEmitter = value;
+		}
+	}
+
+	public int HitPoints {
+		get {
+			return this.hitPoints;
+		}
+		set {
+			hitPoints = value;
+		}
+	}
+
+	public Camera Camera {
+		get {
+			return this.camera;
+		}
+		set {
+			camera = value;
+		}
+	}
 
 	public void StopColliding() {
 		collider.enabled = false;
@@ -70,6 +113,11 @@ public class Building : MonoBehaviour {
 		}
 	}
 
+	void Awake() {
+		spotGenerator.Tiles = recipe.Tiles;
+		hitPoints = recipe.HitPoints;
+	}
+
 	public void StartConstruction() {
 		Vector3 destination = topPoint.position;
 		distanceToMove = destination.y;
@@ -101,19 +149,8 @@ public class Building : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider other) {
-		Rigidbody rigidBody = other.attachedRigidbody;
-		if (rigidBody == null || !name.Contains("Castle")) {
-			return;
-		}
-		ResourceGathering gatheringModule = rigidBody.GetComponent<ResourceGathering> ();
-
-		if (gatheringModule != null) {
-			gatheringModule.CompleteGathering ();
-		}
-	}
-
 	void Update() {
+		textEmitter.Val = HitPoints + " / " + recipe.HitPoints;
 		if (isBuilding && percentageDone < 100) {
 			percentageDone += 100 / recipe.ConstructionTime * Time.deltaTime * workers.Count;
 
@@ -127,6 +164,8 @@ public class Building : MonoBehaviour {
 				constructionBar.gameObject.SetActive (false);
 				isBuilding = false;
 				BuildingManager.Instance.Buildings.Add (this);
+				buildingFinished.Invoke ();
+
 			}
 		}
 	}

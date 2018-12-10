@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingPlacement : Singleton<BuildingPlacement> {
 	[SerializeField] GameObject selectedObject;
@@ -10,27 +11,60 @@ public class BuildingPlacement : Singleton<BuildingPlacement> {
 	[SerializeField] float transparency;
 	[SerializeField] float gridSize;
 
+	public bool ShouldLookForSpot {
+		get {
+			return this.shouldLookForSpot;
+		}
+		set {
+			shouldLookForSpot = value;
+		}
+	}
+
 	void Awake() {
 		InitiateSingleton ();
+	}
+
+	public void Deselect() {
+		if (selectedObject != null) {
+			Destroy (selectedObject);
+			Building buildingScript = selectedObject.GetComponent<Building> ();
+			buildingScript.Cancelled = true;
+			Debug.Log ("deslected");
+		}
+		shouldLookForSpot = false;
+		selectedObject = null;
 	}
 
 	void Update () {
 		if (shouldLookForSpot == true) {
 			CheckForPosition ();
 
+			if (EventSystem.current.IsPointerOverGameObject ()) {
+				return;
+			}
+
 			if (Input.GetMouseButtonDown (0)) {
-				if (CheckGrid (selectedObject.GetComponent<Building> (), selectedObject.transform.position)) {
+				Building buildingScript = selectedObject.GetComponent<Building> ();
+				if (CheckGrid (buildingScript, selectedObject.transform.position)) {
 					InitializeRecipe (selectedObject, selectedRecipe);
-					UIResourceManager.Instance.Wood -= selectedRecipe.GetCost ("Wood");
+					int woodCost  = Mathf.Clamp(selectedRecipe.GetCost ("Wood" ), 0, UIResourceManager.Instance.MaxResources);
+					int stoneCost = Mathf.Clamp(selectedRecipe.GetCost ("Stone"), 0, UIResourceManager.Instance.MaxResources);
+					int foodCost = Mathf.Clamp(selectedRecipe.GetCost ("Food"), 0, UIResourceManager.Instance.MaxResources);
+					UIResourceManager.Instance.Wood  -= woodCost;
+					UIResourceManager.Instance.Stone -= stoneCost;
+					UIResourceManager.Instance.Food -= foodCost;
 					selectedObject.GetComponent<Building> ().StartColliding ();
 					shouldLookForSpot = false;
 					selectedObject = null;
+
+					if (UnitSelection.Instance.SelectedObjects.Count != 0) {
+						Debug.Log (buildingScript);
+						CommandGiver.Instance.HandleBuildCommand (buildingScript);
+					}
 				}
 			}
 			else if (Input.GetMouseButtonDown (1)) {
-				Destroy (selectedObject);
-				shouldLookForSpot = false;
-				selectedObject = null;
+				Deselect ();
 			}
 			else if (Input.GetKeyDown (KeyCode.Q)) {
 				Building building = selectedObject.GetComponent<Building> ();
@@ -44,7 +78,9 @@ public class BuildingPlacement : Singleton<BuildingPlacement> {
 	}
 
 	public void BuildingSelected(BuildingRecipe recipe) {
-		if (UIResourceManager.Instance.Wood >= recipe.GetCost ("Wood")) {
+		Deselect ();
+		if (UIResourceManager.Instance.Wood >= recipe.GetCost ("Wood") &&
+			UIResourceManager.Instance.Stone >= recipe.GetCost ("Stone")) {
 			selectedObject = Instantiate (recipe.Prefab, new Vector3 (), recipe.Prefab.transform.rotation);
 			selectedObject.GetComponent<Building> ().StopColliding ();
 			shouldLookForSpot = true;
@@ -68,8 +104,8 @@ public class BuildingPlacement : Singleton<BuildingPlacement> {
 		int z = (int)(position.z);
 
 		bool canBuild = true;
-		for (int i = x - building.SpotGenerator.Tiles; i < x + building.SpotGenerator.Tiles; i++) {
-			for (int j = z - building.SpotGenerator.Tiles; j < z + building.SpotGenerator.Tiles; j++) {
+		for (int i = x - building.Recipe.Tiles/ 2; i < x + building.Recipe.Tiles/ 2 + 1; i++) {
+			for (int j = z - building.Recipe.Tiles/ 2; j < z + building.Recipe.Tiles/ 2 + 1; j++) {
 				if (GameGrid.Instance.GetWithOffset(i, j)) {
 					canBuild = false;
 					break;
@@ -97,8 +133,8 @@ public class BuildingPlacement : Singleton<BuildingPlacement> {
 		int x = (int)(obj.transform.position.x);
 		int z = (int)(obj.transform.position.z);
 
-		for (int i = x - building.SpotGenerator.Tiles; i < x + building.SpotGenerator.Tiles; i++) {
-			for (int j = z - building.SpotGenerator.Tiles; j < z + building.SpotGenerator.Tiles; j++) {
+		for (int i = x - building.Recipe.Tiles / 2; i < x + building.Recipe.Tiles/ 2 + 1; i++) {
+			for (int j = z - building.Recipe.Tiles/ 2; j < z + building.Recipe.Tiles/ 2 + 1; j++) {
 				GameGrid.Instance.SetWithOffset (i, j, true);
 			}
 		}

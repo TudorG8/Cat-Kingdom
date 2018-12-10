@@ -15,6 +15,7 @@ public class UnitSelection : Singleton<UnitSelection> {
 	[SerializeField] List<SelectableObject> selectedObjects;
 	[SerializeField] Rect currentRect;
 	[SerializeField] List<SelectableObject> workers;
+	[SerializeField] float time;
 
 	public List<SelectableObject> Workers {
 		get {
@@ -37,13 +38,20 @@ public class UnitSelection : Singleton<UnitSelection> {
 
 	// Update is called once per frame
 	void Update () {
+		if (createSelectionBox) {
+			time += Time.deltaTime;
+		}
+
 		if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject()) {
 			startPosition = Input.mousePosition;
 			createSelectionBox = true;
 		}
-		if (Input.GetMouseButtonUp (0)) {
+		if (Input.GetMouseButtonUp (0) ) {
+			if (currentRect.width > 0.2f && currentRect.height > 0.2f) {
+				SelectObjectsInRect ();
+			}
 			createSelectionBox = false;
-			SelectObjects ();
+			time = 0f;
 		}
 	}
 
@@ -101,29 +109,42 @@ public class UnitSelection : Singleton<UnitSelection> {
 		}
 	}
 
-	void DeselectObjects() {
+	public void DeselectObjects() {
 		for (int i = 0; i < selectedObjects.Count; i++) {
 			SelectableObject obj = selectedObjects [i];
 			obj.Deselect ();
 		}
 
 		selectedObjects.Clear ();
+
+		UISelectionController.Instance.TextUpdater.TextEmitter = null;
 	}
 
-	void SelectObjects() {
-		DeselectObjects ();
-
+	void SelectObjectsInRect() {
+		List<SelectableObject> objs = new List<SelectableObject> ();
 		for (int i = 0; i < visibleObjects.Count; i++) {
 			SelectableObject obj = visibleObjects [i]; 
-			if (!obj.CanBeSelected)
-				continue;
 			
 			Vector3 position = Camera.main.WorldToScreenPoint (obj.transform.position);
 			position.y = Screen.height - position.y;
 			if (currentRect.Contains (position)) {
-				obj.Select ();
-				selectedObjects.Add (obj);
+				objs.Add (obj);
 			}
+		}
+
+		SelectObjects (objs);
+	}
+
+	public void SelectObjects(List<SelectableObject> objects) {
+		DeselectObjects ();
+
+		for (int i = 0; i < objects.Count; i++) {
+			SelectableObject obj = objects [i]; 
+			if (!obj.CanBeSelected)
+				continue;
+
+			obj.Select ();
+			selectedObjects.Add (obj);
 		}
 
 		UISelectionController.Instance.UpdateSelectedUnits (selectedObjects);

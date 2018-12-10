@@ -6,9 +6,19 @@ public class UISelectionController : Singleton<UISelectionController> {
 	[SerializeField] GameObject selectedUnitPrefab;
 	[SerializeField] RenderTexture renderTexturePrefab;
 
+	[SerializeField] TextUpdater textUpdater;
 
 	[SerializeField] UIMultipleSelectionPanel multipleSelectionPanel;
 	[SerializeField] UISingleSelectionPanel   singleSelectionPanel  ;
+
+	public TextUpdater TextUpdater {
+		get {
+			return this.textUpdater;
+		}
+		set {
+			textUpdater = value;
+		}
+	}
 
 	void Start() {
 		InitiateSingleton ();
@@ -29,6 +39,12 @@ public class UISelectionController : Singleton<UISelectionController> {
 
 		UnitStats unitInformation = selectedObject.UnitStats;
 		UISingleSelectionPanel panel = singleSelectionPanel;
+
+		panel.Description.transform.parent.gameObject.SetActive (false);
+		panel.Damage.transform.parent.gameObject.SetActive (true);
+		panel.JobPanel.gameObject.SetActive (true);
+		panel.TrainWorkerPanel.gameObject.SetActive (false);
+		panel.JobAssignmentPanel.gameObject.SetActive (false);
 
 		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 		panel.RenderTexture = newRenderTexture;
@@ -57,7 +73,9 @@ public class UISelectionController : Singleton<UISelectionController> {
 
 		for(int i = panel.SelectedPanels.Count; i <  selectedObjects.Count; i++) {
 			GameObject newPanelObj = Instantiate (selectedUnitPrefab, panel.SelectedUnitParent.position, selectedUnitPrefab.transform.rotation);
+			Vector3 scale = newPanelObj.transform.localScale;
 			newPanelObj.transform.SetParent (panel.SelectedUnitParent);
+			newPanelObj.transform.localScale = scale;
 
 			RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 
@@ -75,5 +93,59 @@ public class UISelectionController : Singleton<UISelectionController> {
 
 			panel.SelectedPanels [i].CurrentCamera.targetTexture = panel.SelectedPanels [i].RenderTexture;
 		}
+	}
+
+	public void HandleSelectedBuilding(Building building) {
+		multipleSelectionPanel.SelectedUnitParent.gameObject.SetActive (false);
+		singleSelectionPanel  .SelectedUnitParent.gameObject.SetActive (true);
+
+		BuildingRecipe buildingInformation = building.Recipe;
+		UISingleSelectionPanel panel = singleSelectionPanel;
+
+		panel.Description.transform.parent.gameObject.SetActive (true);
+		panel.Damage.transform.parent.gameObject.SetActive (false);
+		panel.JobPanel.gameObject.SetActive (false);
+		panel.JobAssignmentPanel.gameObject.SetActive (false);
+
+		if (building.Recipe.BuildingName == BuildingType.Castle) {
+			panel.TrainWorkerPanel.gameObject.SetActive (true);
+		}
+
+		if (building.Recipe.BuildingName == BuildingType.Barracks) {
+			panel.JobAssignmentPanel.gameObject.SetActive (true);
+		}
+
+		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
+		panel.RenderTexture = newRenderTexture;
+		panel.Name.text = buildingInformation.BuildingName.ToString();
+		panel.CurrentCamera = building.Camera;
+		panel.CurrentCamera.targetTexture = newRenderTexture;
+		panel.Health.text = building.HitPoints + " / " + buildingInformation.HitPoints;
+		panel.Description.text = building.Recipe.Description;
+
+		textUpdater.TextEmitter = building.TextEmitter;
+	}
+
+	public void HandleSelectedResource(Resource resource) {
+		multipleSelectionPanel.SelectedUnitParent.gameObject.SetActive (false);
+		singleSelectionPanel  .SelectedUnitParent.gameObject.SetActive (true);
+
+		UISingleSelectionPanel panel = singleSelectionPanel;
+
+		panel.Description.transform.parent.gameObject.SetActive (true);
+		panel.Damage.transform.parent.gameObject.SetActive (false);
+		panel.JobPanel.gameObject.SetActive (false);
+		panel.TrainWorkerPanel.gameObject.SetActive (false);
+		panel.JobAssignmentPanel.gameObject.SetActive (false);
+
+		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
+		panel.RenderTexture = newRenderTexture;
+		panel.Name.text = resource.ResourceName;
+		panel.CurrentCamera = resource.Camera;
+		panel.CurrentCamera.targetTexture = newRenderTexture;
+		panel.Health.text = resource.CurrentResources + " / " + resource.MaximumResources + " (" + resource.ResourceType + ")";
+		panel.Description.text = resource.Description;
+
+		textUpdater.TextEmitter = resource.TextEmitter;
 	}
 }

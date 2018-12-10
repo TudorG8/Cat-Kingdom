@@ -61,6 +61,11 @@ public class SelectableObject : MonoBehaviour {
 	}
 
 	public void StopCurrentAction() {
+		UnitMovement movementModule = GetComponent<UnitMovement> ();
+		if (movementModule != null ) {
+			movementModule.StopMoving ();
+		}
+
 		ResourceGathering gatheringModule = GetComponent<ResourceGathering> ();
 		if (gatheringModule != null && gatheringModule.IsGathering) {
 			gatheringModule.Reset ();

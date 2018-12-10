@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhaseSwitcher : MonoBehaviour {
+public class PhaseSwitcher : Singleton<PhaseSwitcher> {
 	[SerializeField] GameObject battlePhaseStatus;
 	[SerializeField] GameObject buildPhaseStatus;
 	[SerializeField] UIProgressBar battleProgressBar;
@@ -11,6 +11,19 @@ public class PhaseSwitcher : MonoBehaviour {
 	[SerializeField] int buildTime;
 
 	[SerializeField] float timeLeft;
+
+	public GamePhase CurrentPhase {
+		get {
+			return this.currentPhase;
+		}
+		set {
+			currentPhase = value;
+		}
+	}
+
+	void Awake() {
+		InitiateSingleton ();
+	}
 
 	void Start() {
 		ChangeToBuildPhase (false);
@@ -62,12 +75,15 @@ public class PhaseSwitcher : MonoBehaviour {
 	}
 
 	void CommandUnitsToSwitch(bool equipItems) {
+		if (!equipItems) {
+			ArmySwitcher.Instance.Reset ();
+		}
 		for (int i = 0; i < UnitSelection.Instance.Workers.Count; i++) {
 			SelectableObject worker = UnitSelection.Instance.Workers [i];
 			worker.Deselect ();
 			worker.CanBeSelected = false;
 
-			Building closestCastle = BuildingManager.Instance.GetClosestBuilding(BuildingType.Castle).GetComponent<Building>();
+			Building closestCastle = BuildingManager.Instance.GetClosestBuilding(worker.transform, new List<BuildingType> { BuildingType.Castle }).GetComponent<Building>();
 
 			Indicator indicator = closestCastle.SpotGenerator.GetClosestSpot (worker.transform.position);
 
@@ -81,6 +97,14 @@ public class PhaseSwitcher : MonoBehaviour {
 					Vector3 lookPosition = closestCastle.transform.position;
 					lookPosition.y = gameObject.transform.position.y;
 					gameObject.transform.LookAt(lookPosition);
+
+					if(equipItems) {
+						ArmySwitcher.Instance.AssignWorker(worker);
+					}
+
+					if(!equipItems) {
+						ArmySwitcher.Instance.ResetWorker(worker);
+					}
 
 					worker.CanBeSelected = true;
 					worker.UnitStats.EquipItems(equipItems);

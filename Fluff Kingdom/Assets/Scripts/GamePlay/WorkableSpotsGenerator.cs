@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class WorkableSpotsGenerator : MonoBehaviour {
 	[SerializeField] Dictionary<Indicator, bool> possibleWorkerLocations;
-	[SerializeField] int tiles;
 	[SerializeField] Transform indicatorParent;
 	[SerializeField] GameObject indicatorPrefab;
 	[SerializeField] Building building;
+	[SerializeField] int tiles;
 
 	[SerializeField] int maximumWorkers;
+
+	public int Tiles {
+		get {
+			return this.tiles;
+		}
+		set {
+			tiles = value;
+		}
+	}
 
 	public int MaximumWorkers {
 		get {
@@ -22,12 +31,7 @@ public class WorkableSpotsGenerator : MonoBehaviour {
 			return this.building;
 		}
 	}
-
-	public int Tiles {
-		get {
-			return this.tiles;
-		}
-	}
+		
 
 	void Start() {
 		Vector3 center = transform.position;
