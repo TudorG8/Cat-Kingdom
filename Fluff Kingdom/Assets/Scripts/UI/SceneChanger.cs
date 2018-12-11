@@ -17,6 +17,7 @@ public class SceneChanger : MonoBehaviour {
 	}
 
 	public void LoadMainMenu () {
+		Debug.Log ("uh");
 		uiFade.FadeTo ();
 		StartCoroutine(LoadLevelAfterDelay ("MainMenu", 1f));
 	}

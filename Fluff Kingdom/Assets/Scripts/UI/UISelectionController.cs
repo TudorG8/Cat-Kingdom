@@ -1,15 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UISelectionController : Singleton<UISelectionController> {
 	[SerializeField] GameObject selectedUnitPrefab;
 	[SerializeField] RenderTexture renderTexturePrefab;
+	[SerializeField] Image image;
 
 	[SerializeField] TextUpdater textUpdater;
 
 	[SerializeField] UIMultipleSelectionPanel multipleSelectionPanel;
 	[SerializeField] UISingleSelectionPanel   singleSelectionPanel  ;
+
+	public Image Image {
+		get {
+			return this.image;
+		}
+		set {
+			image = value;
+		}
+	}
 
 	public TextUpdater TextUpdater {
 		get {
