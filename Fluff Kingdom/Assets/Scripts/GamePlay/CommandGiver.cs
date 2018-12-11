@@ -60,17 +60,39 @@ public class CommandGiver : Singleton<CommandGiver> {
 		for (int i = 0; i < selectedObjects.Count; i++) {
 			SelectableObject selectedObject = selectedObjects [i];
 
+			selectedObject.StopCurrentAction ();
+
 			Indicator indicator = resource.SpotGenerator.GetClosestSpot (selectedObject.transform.position);
+			ResourceGathering gatheringModule = selectedObject.GetComponent<ResourceGathering> ();
 
 			if (indicator == null)
 				continue;
 
-			ResourceGathering gatheringModule = selectedObject.GetComponent<ResourceGathering> ();
-			if (gatheringModule != null) {
-				selectedObject.StopCurrentAction ();
+			if (gatheringModule == null)
+				continue;
+
+			if (resource.CanBeHarvested ()) {
 				indicator.Connect (selectedObject);
 				selectedObject.Indicator = indicator;
 				gatheringModule.StartGathering (resource);
+			} 
+			else {
+				Resource nextClosestResource = ResourceManager.Instance.GetNextClosestResource (resource.ResourceType, resource.transform.position, gatheringModule.MaxGatherDistance);
+
+
+				if (nextClosestResource == null) {
+					continue;
+				}
+
+				indicator = nextClosestResource.SpotGenerator.GetClosestSpot (selectedObject.transform.position);
+
+				if (indicator == null) {
+					continue;
+				}
+					
+				indicator.Connect (selectedObject);
+				selectedObject.Indicator = indicator;
+				gatheringModule.StartGathering (nextClosestResource);
 			}
 		}
 	}

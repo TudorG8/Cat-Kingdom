@@ -16,6 +16,7 @@ public class Resource : MonoBehaviour {
 	[SerializeField] Camera camera;
 	[SerializeField] ProgressBarUpdater progressBarUpdater;
 	[SerializeField] TextEmitter textEmitter;
+	[SerializeField] DeathChecker deathChecker;
 
 	[SerializeField] int currentResources;
 
@@ -51,7 +52,7 @@ public class Resource : MonoBehaviour {
 			return this.currentResources;
 		}
 		set {
-			currentResources = value;
+			currentResources = Mathf.Clamp(value, 0, maximumResources);
 			if (currentResources != maximumResources) {
 				progressBarUpdater.ProgressBar.gameObject.SetActive (true);	
 			}
@@ -112,14 +113,38 @@ public class Resource : MonoBehaviour {
 		}
 	}
 
+	public bool CanBeHarvested() {
+		return ((workers.Count + 1) * contentsPerTrip <= currentResources);
+	}
+
 	void Awake()  {
 		spotGenerator.Tiles = tiles;
 		currentResources = maximumResources;
+		deathChecker.Val = currentResources;
 	}
 
 	void Update() {
 		progressBarUpdater.UpdateToValue ((float)currentResources / maximumResources);
+		deathChecker.Val = currentResources;
 		textEmitter.Val = CurrentResources + " / " + MaximumResources + " (" + ResourceType + ")";
+	}
+
+	public bool AssignWorker(SelectableObject worker) {
+		if ((workers.Count + 1) * contentsPerTrip > currentResources) {
+			return false;
+		}
+			
+		workers.Add (worker);
+
+		return true;
+	}
+
+	public void RemoveResource() {
+		ResourceManager.Instance.RemoveResource (this);
+	}
+
+	public void RemoveWorker(SelectableObject worker) {
+		workers.Remove (worker);
 	}
 
 	void Start() {

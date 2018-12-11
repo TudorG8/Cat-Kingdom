@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 54258679596459402}
   - component: {fileID: 114236499272720406}
   - component: {fileID: 114411096854795354}
+  - component: {fileID: 114958422538233954}
   m_Layer: 11
   m_Name: Stone Deposit
   m_TagString: Untagged
@@ -186,8 +187,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372310278918096}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.051, y: 0, z: 0.401}
-  m_LocalScale: {x: 0.2332202, y: 0.23322017, z: 0.23322017}
+  m_LocalPosition: {x: 0.051, y: 0, z: 0.188}
+  m_LocalScale: {x: 0.16625282, y: 0.16625279, z: 0.16625279}
   m_Children: []
   m_Father: {fileID: 4750897228020368}
   m_RootOrder: 0
@@ -347,11 +348,12 @@ MonoBehaviour:
   spotGenerator: {fileID: 114870353418673398}
   resourceType: 1
   obj: {fileID: 1420017479750556, guid: 55a8248b2f464414fb831fd21b6fcbb5, type: 2}
-  tiles: 3
+  tiles: 2
   maximumResources: 300
   camera: {fileID: 20809442798898902}
   progressBarUpdater: {fileID: 114236499272720406}
   textEmitter: {fileID: 114411096854795354}
+  deathChecker: {fileID: 114958422538233954}
   currentResources: 0
 --- !u!114 &114066115945085890
 MonoBehaviour:
@@ -495,8 +497,48 @@ MonoBehaviour:
   indicatorPrefab: {fileID: 1575834807168286, guid: 49fb998e2a3215840a59908adbeeb121,
     type: 2}
   building: {fileID: 0}
-  tiles: 0
+  tiles: 2
   maximumWorkers: 0
+--- !u!114 &114958422538233954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200591128436398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c9712cf516304098562e5133bfec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  val: 10
+  threshold: 0.1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114002689371909478}
+        m_MethodName: RemoveResource
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1985651631264600}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114959532770370822
 MonoBehaviour:
   m_ObjectHideFlags: 1

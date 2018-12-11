@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 54762858028830584}
   - component: {fileID: 114692715076503136}
   - component: {fileID: 114965976397416388}
+  - component: {fileID: 114854053522622842}
   m_Layer: 11
   m_Name: Fruit Bush
   m_TagString: Untagged
@@ -441,6 +442,7 @@ MonoBehaviour:
   camera: {fileID: 20798452922718490}
   progressBarUpdater: {fileID: 114692715076503136}
   textEmitter: {fileID: 114965976397416388}
+  deathChecker: {fileID: 114854053522622842}
   currentResources: 0
 --- !u!114 &114692715076503136
 MonoBehaviour:
@@ -481,6 +483,46 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114854053522622842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1948118798559162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c9712cf516304098562e5133bfec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  val: 10
+  threshold: 0.1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114395998917391134}
+        m_MethodName: RemoveResource
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1553549833337068}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114873559238867118
 MonoBehaviour:
   m_ObjectHideFlags: 1

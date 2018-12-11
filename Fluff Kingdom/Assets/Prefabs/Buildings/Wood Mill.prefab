@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1678268439494208
 GameObject:
   m_ObjectHideFlags: 1
@@ -315,7 +315,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535458223317530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.97, y: 0.020000458, z: 10}
+  m_LocalPosition: {x: 0.80248547, y: 55.167217, z: -34.841934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4969587326435120}
@@ -886,7 +886,7 @@ MonoBehaviour:
   collider: {fileID: 65663940904817528}
   navMeshObstacle: {fileID: 208339832793422864}
   camera: {fileID: 20809875760596364}
-  hitPoints: 0
+  hitPoints: 100
   textEmitter: {fileID: 114862270646096216}
   buildingFinished:
     m_PersistentCalls:

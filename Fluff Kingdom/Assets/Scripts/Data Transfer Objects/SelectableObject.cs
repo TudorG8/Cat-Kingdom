@@ -71,6 +71,10 @@ public class SelectableObject : MonoBehaviour {
 			gatheringModule.Reset ();
 		}
 
+		DisconnectIndicator ();
+	}
+
+	public void DisconnectIndicator() {
 		if(indicator != null)
 			indicator.Disconnect ();
 		indicator = null;

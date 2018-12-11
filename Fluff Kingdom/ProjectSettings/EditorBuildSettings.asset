@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/GrassyHills.unity
+    guid: b1f3e05ba429a7e4d8990e2bca5b9d6a
+  - enabled: 1
+    path: Assets/Scenes/DarkTimes.unity
+    guid: fed0766c684502c42a3c02e0f26521ed
   m_configObjects: {}

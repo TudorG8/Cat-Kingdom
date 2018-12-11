@@ -17,7 +17,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 			instance = this as T;
 		} 
 		else {
-			DestroyImmediate (this);
+			Destroy (this.gameObject);
 			Debug.LogError ("Attempted to create another instance of " + this + " when it is a singleton. New Object Deleted.");
 		}
 	}

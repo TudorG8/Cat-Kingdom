@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 54298545964837604}
   - component: {fileID: 114205981081256300}
   - component: {fileID: 114029908107060586}
+  - component: {fileID: 114850241928185944}
   m_Layer: 11
   m_Name: Fluff Deposit
   m_TagString: Untagged
@@ -840,6 +841,7 @@ MonoBehaviour:
   camera: {fileID: 20584817869182760}
   progressBarUpdater: {fileID: 114205981081256300}
   textEmitter: {fileID: 114029908107060586}
+  deathChecker: {fileID: 114850241928185944}
   currentResources: 0
 --- !u!114 &114699370083322060
 MonoBehaviour:
@@ -889,6 +891,46 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114850241928185944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1957408891783362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c9712cf516304098562e5133bfec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  val: 10
+  threshold: 0.1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114608611710477842}
+        m_MethodName: RemoveResource
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1380830880721158}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!124 &124694840805806750
 Behaviour:
   m_ObjectHideFlags: 1
