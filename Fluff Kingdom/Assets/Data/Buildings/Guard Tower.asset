@@ -15,6 +15,7 @@ MonoBehaviour:
   description: A defensive tower that will shoot at incoming enemies
   maximumWorkers: 0
   tiles: 2
+  hitPoints: 200
   constructionTime: 5
   prefab: {fileID: 1393262760508030, guid: 103d260caefd4a34a887183587c33358, type: 2}
   materials:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIFade : MonoBehaviour {
 	[SerializeField] Color fromColour;
@@ -14,6 +15,15 @@ public class UIFade : MonoBehaviour {
 	[SerializeField] bool playOnAwake;
 
 	[SerializeField] float timePassed;
+
+	public Image Image {
+		get {
+			return this.image;
+		}
+		set {
+			image = value;
+		}
+	}
 
 	public void FadeTo  () {
 		StartCoroutine(FadeRoutine(fromColour, toColour));
@@ -30,15 +40,6 @@ public class UIFade : MonoBehaviour {
 			image.color = Color.Lerp (initial, target, timePassed / duration);
 			timePassed += Time.unscaledDeltaTime;
 			yield return new WaitForEndOfFrame ();
-		}
-	}
-
-	void Start() {
-		if (image == null) {
-			image = UISelectionController.Instance.Image;
-		}
-		if (playOnAwake) {
-			FadeFrom ();
 		}
 	}
 }

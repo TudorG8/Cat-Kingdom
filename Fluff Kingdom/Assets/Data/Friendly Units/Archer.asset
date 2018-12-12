@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6d3f795ff6933449257cb6db1b0d8d, type: 3}
   m_Name: Archer
   m_EditorClassIdentifier: 
-  className: 1
+  className: 2
   minDamage: 8
   maxDamage: 16
   hitPoints: 60
@@ -20,4 +20,5 @@ MonoBehaviour:
   offHand: {fileID: 1514803585241862, guid: 093cce75e4a4a824a81cc72816a21fb2, type: 2}
   back: {fileID: 1315229833736424, guid: 4489fd78d824cd64e9d1d41f1e64d315, type: 2}
   hat: {fileID: 1829823623420600, guid: 3d9925c5612c19d489cab7df7549a26c, type: 2}
-  range: 0
+  range: 10
+  animator: {fileID: 9100000, guid: 1553d2a0ff935064e8fd9d128bd48e19, type: 2}

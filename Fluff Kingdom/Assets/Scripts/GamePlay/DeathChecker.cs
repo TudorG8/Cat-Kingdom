@@ -23,7 +23,7 @@ public class DeathChecker : MonoBehaviour {
 		}
 	}
 
-	public void Destroy() {
+	public void Destroy(float delay) {
 		Destroy (gameObject);
 	}
 }

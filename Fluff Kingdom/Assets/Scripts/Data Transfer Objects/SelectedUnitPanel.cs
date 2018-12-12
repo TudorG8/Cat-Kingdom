@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class SelectedUnitPanel : MonoBehaviour {
 	[SerializeField] Text name;
-	[SerializeField] RawImage image;
-	[SerializeField] RenderTexture renderTexture;
-	[SerializeField] Camera currentCamera;
+	[SerializeField] Image image;
 
 	public Text Name {
 		get {
@@ -15,28 +13,9 @@ public class SelectedUnitPanel : MonoBehaviour {
 		}
 	}
 
-	public RawImage Image {
+	public Image Image {
 		get {
 			return this.image;
-		}
-	}
-
-	public RenderTexture RenderTexture {
-		get {
-			return this.renderTexture;
-		}
-		set {
-			renderTexture = value;
-			image.texture = value;
-		}
-	}
-
-	public Camera CurrentCamera {
-		get {
-			return this.currentCamera;
-		}
-		set {
-			currentCamera = value;
 		}
 	}
 }

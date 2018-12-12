@@ -15,8 +15,9 @@ MonoBehaviour:
   description: Provides a gathering spot for fluff.
   maximumWorkers: 0
   tiles: 2
+  hitPoints: 200
   constructionTime: 5
   prefab: {fileID: 1692124018789796, guid: 6de8ac1ba07ce5146b5e80a49ffedb62, type: 2}
   materials:
   - type: Wood
-    cost: 20
+    cost: 25

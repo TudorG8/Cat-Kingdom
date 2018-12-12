@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6d3f795ff6933449257cb6db1b0d8d, type: 3}
   m_Name: Spearman
   m_EditorClassIdentifier: 
-  className: 2
+  className: 3
   minDamage: 15
   maxDamage: 20
   hitPoints: 90
@@ -20,4 +20,5 @@ MonoBehaviour:
   offHand: {fileID: 1768760732203158, guid: 0a129465ca136984dbe61ea53e9b7446, type: 2}
   back: {fileID: 1413909973557984, guid: 503ae0c42a56d1e46ab975cdce53e686, type: 2}
   hat: {fileID: 1551634480838384, guid: 3d67a90194007b24080434711575f874, type: 2}
-  range: 0
+  range: 2.5
+  animator: {fileID: 9100000, guid: 930bfbcce9121314b938b6755d593d44, type: 2}

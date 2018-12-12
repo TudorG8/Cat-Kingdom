@@ -9,6 +9,7 @@ public class UnitStats : MonoBehaviour {
 	[SerializeField] Transform offHandSpot;
 	[SerializeField] Transform backSpot;
 	[SerializeField] Transform hatSpot;
+	[SerializeField] Animator animator;
 
 	void Start() {
 		currentHitPoints = unitClass.HitPoints;
@@ -19,7 +20,7 @@ public class UnitStats : MonoBehaviour {
 			return this.currentHitPoints;
 		}
 		set {
-			currentHitPoints = value;
+			currentHitPoints = Mathf.Clamp(value, 0, int.MaxValue);
 		}
 	}
 
@@ -50,6 +51,8 @@ public class UnitStats : MonoBehaviour {
 
 			GameObject back = Instantiate (unitClass.Back, backSpot.transform.position, mainHandSpot.transform.rotation);
 			back.transform.SetParent (backSpot);
+
+			animator.runtimeAnimatorController = unitClass.Animator;
 		}
 	}
 }

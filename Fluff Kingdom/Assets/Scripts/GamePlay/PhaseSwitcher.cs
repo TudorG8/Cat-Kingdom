@@ -9,8 +9,19 @@ public class PhaseSwitcher : Singleton<PhaseSwitcher> {
 	[SerializeField] UIText buildTimer;
 	[SerializeField] GamePhase currentPhase;
 	[SerializeField] int buildTime;
+	[SerializeField] ProgressBarUpdater progressBarUpdater;
 
 	[SerializeField] float timeLeft;
+	[SerializeField] bool stopped;
+
+	public bool Stopped {
+		get {
+			return this.stopped;
+		}
+		set {
+			stopped = value;
+		}
+	}
 
 	public GamePhase CurrentPhase {
 		get {
@@ -48,9 +59,14 @@ public class PhaseSwitcher : Singleton<PhaseSwitcher> {
 		battlePhaseStatus.SetActive (true);
 		if(changeUnits)
 			CommandUnitsToSwitch (true);
+
+		EnemySpawner.Instance.SpawnWave ();
 	}
 
 	void Update() {
+		if (stopped)
+			return;
+
 		if (currentPhase == GamePhase.Build) {
 			timeLeft = Mathf.Clamp (timeLeft - Time.deltaTime, 0, float.MaxValue);
 			int minutes = (int)(timeLeft / 60);
@@ -70,6 +86,7 @@ public class PhaseSwitcher : Singleton<PhaseSwitcher> {
 
 			if (enemyCount == 0) {
 				ChangeToBuildPhase (true);
+				EnemySpawner.Instance.OnWaveDone ();
 			}
 		}
 	}
@@ -87,7 +104,7 @@ public class PhaseSwitcher : Singleton<PhaseSwitcher> {
 
 			Indicator indicator = closestCastle.SpotGenerator.GetClosestSpot (worker.transform.position);
 
-			UnitMovement unitMovement = worker.GetComponent<UnitMovement> ();
+			MovementModule unitMovement = worker.GetComponent<MovementModule> ();
 
 			if (unitMovement != null) {
 				worker.StopCurrentAction ();

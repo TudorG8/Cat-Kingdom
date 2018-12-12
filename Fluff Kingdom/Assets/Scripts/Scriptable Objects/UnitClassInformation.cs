@@ -28,6 +28,16 @@ public class UnitClassInformation : ScriptableObject {
 	[SerializeField] GameObject back;
 	[SerializeField] GameObject hat;
 	[SerializeField] float range;
+	[SerializeField] RuntimeAnimatorController animator;
+
+	public RuntimeAnimatorController Animator {
+		get {
+			return this.animator;
+		}
+		set {
+			animator = value;
+		}
+	}
 
 	public UnitClass ClassName {
 		get {

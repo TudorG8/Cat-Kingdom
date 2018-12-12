@@ -31,6 +31,15 @@ public class UnitSelection : Singleton<UnitSelection> {
 		get { return selectedObjects; }
 	}
 
+	public List<SelectableObject> VisibleObjects {
+		get {
+			return this.visibleObjects;
+		}
+		set {
+			visibleObjects = value;
+		}
+	}
+
 	void Awake() {
 		InitiateSingleton ();
 		InitializeTexture ();
@@ -124,6 +133,9 @@ public class UnitSelection : Singleton<UnitSelection> {
 		List<SelectableObject> objs = new List<SelectableObject> ();
 		for (int i = 0; i < visibleObjects.Count; i++) {
 			SelectableObject obj = visibleObjects [i]; 
+
+			if (obj.Side != Side.Ally)
+				continue;
 			
 			Vector3 position = Camera.main.WorldToScreenPoint (obj.transform.position);
 			position.y = Screen.height - position.y;

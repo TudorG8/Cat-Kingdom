@@ -48,7 +48,7 @@ public class RecordKeeper : Singleton<RecordKeeper> {
 		}
 
 		public static int SortByValue(Record r1, Record r2) {
-			return r1.Val.CompareTo (r2.Val);
+			return r2.Val.CompareTo (r1.Val);
 		}
 	}
 

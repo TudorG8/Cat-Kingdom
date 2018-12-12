@@ -74,4 +74,7 @@ public class MainMenuController : MonoBehaviour {
 		LoadBox (optionBox);
 	}
 
+	public void HardModeToggleChange(bool val) {
+		SessionData.Instance.HardMode = val;
+	}
 }

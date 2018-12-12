@@ -19,7 +19,7 @@ public class CommandGiver : Singleton<CommandGiver> {
 		}
 	}
 
-	public void ExecuteClickCommand() {
+	public void ExecuteClickCommand(UIActionPanel.Action action = UIActionPanel.Action.None) {
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Vector3 destination;
@@ -35,22 +35,72 @@ public class CommandGiver : Singleton<CommandGiver> {
 			return;
 		}
 
-		if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Building") && PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build) {
+		if (UnitSelection.Instance.SelectedObjects.Count == 1 && UnitSelection.Instance.SelectedObjects [0].Side == Side.Enemy) {
+			return;
+		}	
+
+		if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Building") 
+			&& PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build
+			&& action == UIActionPanel.Action.None
+		) {
 			Building building = hit.rigidbody.gameObject.GetComponent<Building> ();
-			Debug.Log ("hm");
 			if (building != null && !building.Cancelled) {
 				HandleBuildCommand (building);
 			}
 		} 
-		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Resource")&& PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build) {
+		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Resource") 
+			&& PhaseSwitcher.Instance.CurrentPhase == GamePhase.Build
+			&& action == UIActionPanel.Action.None
+		){
 			Resource resource = hit.rigidbody.gameObject.GetComponent<Resource> ();
 
 			if (resource != null) {
 				HandleResourceCommand (resource);
 			}
 		}
+		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Unit")) {
+			
+			SelectableObject unit = hit.rigidbody.gameObject.GetComponent<SelectableObject> ();
+
+			if (unit != null && unit.Side == Side.Enemy) {
+				HandleAttackCommand (unit.GetComponent<AttackableUnit>());
+			}
+		}
 		else if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
-			HandleMoveToCommand (destination);
+			if (action == UIActionPanel.Action.Attack) {
+				HandleAttackCommand (destination);
+			} 
+			else {
+				HandleMoveToCommand (destination);
+			}
+		}
+	}
+
+	public void HandleAttackCommand(AttackableUnit target) {
+		List<SelectableObject> selectedObjects = UnitSelection.Instance.SelectedObjects;
+
+		for (int i = 0; i < selectedObjects.Count; i++) {
+			SelectableObject selectedObject = selectedObjects [i];
+
+			selectedObject.StopCurrentAction ();
+
+			AttackModule attackModule = selectedObject.GetComponent<AttackModule> ();
+
+			attackModule.AttackTarget (target, selectedObject.UnitStats.UnitClass.MinDamage, selectedObject.UnitStats.UnitClass.MaxDamage, selectedObject.UnitStats.UnitClass.Range);
+		}
+	}
+
+	public void HandleAttackCommand(Vector3 position) {
+		List<SelectableObject> selectedObjects = UnitSelection.Instance.SelectedObjects;
+
+		for (int i = 0; i < selectedObjects.Count; i++) {
+			SelectableObject selectedObject = selectedObjects [i];
+
+			selectedObject.StopCurrentAction ();
+
+			AttackModule attackModule = selectedObject.GetComponent<AttackModule> ();
+
+			attackModule.AttackTarget (position, selectedObject.UnitStats.UnitClass.MinDamage, selectedObject.UnitStats.UnitClass.MaxDamage, selectedObject.UnitStats.UnitClass.Range);
 		}
 	}
 
@@ -63,7 +113,7 @@ public class CommandGiver : Singleton<CommandGiver> {
 			selectedObject.StopCurrentAction ();
 
 			Indicator indicator = resource.SpotGenerator.GetClosestSpot (selectedObject.transform.position);
-			ResourceGathering gatheringModule = selectedObject.GetComponent<ResourceGathering> ();
+			ResourceGatheringModule gatheringModule = selectedObject.GetComponent<ResourceGatheringModule> ();
 
 			if (indicator == null)
 				continue;
@@ -108,7 +158,7 @@ public class CommandGiver : Singleton<CommandGiver> {
 			if (indicator == null)
 				continue;
 
-			UnitMovement unitMovement = selectedObject.GetComponent<UnitMovement> ();
+			MovementModule unitMovement = selectedObject.GetComponent<MovementModule> ();
 			if (unitMovement != null) {
 				selectedObject.StopCurrentAction ();
 				indicator.Connect (selectedObject);
@@ -141,7 +191,7 @@ public class CommandGiver : Singleton<CommandGiver> {
 
 			Vector3 actualDestination = destination + direction * minimumDistance;
 
-			UnitMovement unitMovement = selectedObject.GetComponent<UnitMovement> ();
+			MovementModule unitMovement = selectedObject.GetComponent<MovementModule> ();
 			if (unitMovement != null) {
 				unitMovement.MoveTowards (actualDestination, (gameObject) => {
 					Vector3 lookPosition = destination;

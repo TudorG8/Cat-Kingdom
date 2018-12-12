@@ -19,7 +19,7 @@ public class GatheringDropoff : MonoBehaviour {
 		if (rigidBody == null) {
 			return;
 		}
-		ResourceGathering gatheringModule = rigidBody.GetComponent<ResourceGathering> ();
+		ResourceGatheringModule gatheringModule = rigidBody.GetComponent<ResourceGatheringModule> ();
 
 		if (gatheringModule != null && resourceTypes.Contains( gatheringModule.CurrentResource)) {
 			gatheringModule.CompleteGathering ();

@@ -20,9 +20,11 @@ public class Building : MonoBehaviour {
 	[SerializeField] Camera camera;
 	[SerializeField] int hitPoints;
 	[SerializeField] TextEmitter textEmitter;
+	[SerializeField] ProgressBarUpdater progressBarUpdater;
 	[SerializeField] UnityEvent buildingFinished;
 	[SerializeField] UnityEvent buildingDestroyed;
 	[SerializeField] bool cancelled;
+	[SerializeField] UnityEvent onDeath;
 
 	public bool Cancelled {
 		get {
@@ -47,7 +49,7 @@ public class Building : MonoBehaviour {
 			return this.hitPoints;
 		}
 		set {
-			hitPoints = value;
+			hitPoints = Mathf.Clamp (value, 0, int.MaxValue);
 		}
 	}
 
@@ -149,8 +151,17 @@ public class Building : MonoBehaviour {
 		}
 	}
 
+	public void TakeDamage(int damage) {
+		hitPoints -= damage;
+
+		if (hitPoints == 0) {
+			onDeath.Invoke ();
+		}
+	}
+
 	void Update() {
 		textEmitter.Val = HitPoints + " / " + recipe.HitPoints;
+		progressBarUpdater.UpdateToValue ((float)hitPoints / recipe.HitPoints);
 		if (isBuilding && percentageDone < 100) {
 			percentageDone += 100 / recipe.ConstructionTime * Time.deltaTime * workers.Count;
 

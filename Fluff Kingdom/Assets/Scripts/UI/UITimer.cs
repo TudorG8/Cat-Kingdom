@@ -7,9 +7,31 @@ public class UITimer : MonoBehaviour {
 	[SerializeField] bool shouldCountDown = true;
 	[SerializeField] Text countdownText;
 	[SerializeField] float elapsedTime = 0f;
+	[SerializeField] bool stopped;
+
+	public bool Stopped {
+		get {
+			return this.stopped;
+		}
+		set {
+			stopped = value;
+		}
+	}
+
+	public float ElapsedTime {
+		get {
+			return this.elapsedTime;
+		}
+		set {
+			elapsedTime = value;
+		}
+	}
 
 	// Update is called once per frame
 	void Update () {
+		if (stopped)
+			return;
+
 		if (shouldCountDown) {
 			elapsedTime += Time.deltaTime;
 		}

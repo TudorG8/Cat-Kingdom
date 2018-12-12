@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: Worker
   m_EditorClassIdentifier: 
   className: 0
-  minDamage: 0
-  maxDamage: 0
+  minDamage: 5
+  maxDamage: 5
   hitPoints: 20
   sprite: {fileID: 21300000, guid: efef0ca76d8a7b04abe542352b45b700, type: 3}
   mainHand: {fileID: 0}

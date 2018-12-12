@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6d3f795ff6933449257cb6db1b0d8d, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  className: 0
+  className: 1
   minDamage: 10
   maxDamage: 15
   hitPoints: 120
@@ -20,4 +20,5 @@ MonoBehaviour:
   offHand: {fileID: 1274405391561176, guid: 48d2eea89d4af344f8bf578899151de3, type: 2}
   back: {fileID: 1195039479879612, guid: 817b2fd47ad281242b22e5d8a52d5c19, type: 2}
   hat: {fileID: 1203155560094504, guid: 883206b27fa7c9b4d8ae1414b9893f34, type: 2}
-  range: 0
+  range: 1.5
+  animator: {fileID: 9100000, guid: bcde2132b68ff7b4fb84212633acc405, type: 2}

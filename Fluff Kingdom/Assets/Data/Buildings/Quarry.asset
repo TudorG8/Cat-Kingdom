@@ -15,8 +15,9 @@ MonoBehaviour:
   description: Provides a gathering spot for stone.
   maximumWorkers: 0
   tiles: 4
+  hitPoints: 200
   constructionTime: 5
   prefab: {fileID: 1534277821616198, guid: 499fb67ada23dd244bcaefcd0dae8e85, type: 2}
   materials:
   - type: Wood
-    cost: 20
+    cost: 25

@@ -60,6 +60,9 @@ public class UISelectionController : Singleton<UISelectionController> {
 		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 		panel.RenderTexture = newRenderTexture;
 		panel.Name.text = selectedObject.Name;
+		if(panel.CurrentCamera != null)
+			panel.CurrentCamera.gameObject.SetActive (false);
+		selectedObject.DisplayCamera.gameObject.SetActive (true);
 		panel.CurrentCamera = selectedObject.DisplayCamera;
 		panel.CurrentCamera.targetTexture = newRenderTexture;
 		panel.Damage.text = unitInformation.UnitClass.MinDamage + " - " + unitInformation.UnitClass.MaxDamage;
@@ -75,11 +78,6 @@ public class UISelectionController : Singleton<UISelectionController> {
 		UIMultipleSelectionPanel panel = multipleSelectionPanel;
 		for (int i = 0; i < panel.SelectedPanels.Count; i++) {
 			panel.SelectedPanels [i].gameObject.SetActive (false);
-
-			if (panel.SelectedPanels [i].CurrentCamera != null) {
-				panel.SelectedPanels [i].CurrentCamera.targetTexture = null;
-				panel.SelectedPanels [i].CurrentCamera = null;
-			}
 		}
 
 		for(int i = panel.SelectedPanels.Count; i <  selectedObjects.Count; i++) {
@@ -91,7 +89,6 @@ public class UISelectionController : Singleton<UISelectionController> {
 			RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 
 			SelectedUnitPanel selectedUnitPanelScript = newPanelObj.GetComponent<SelectedUnitPanel> ();
-			selectedUnitPanelScript.RenderTexture = newRenderTexture;
 
 			panel.SelectedPanels.Add (selectedUnitPanelScript);
 		}
@@ -100,9 +97,7 @@ public class UISelectionController : Singleton<UISelectionController> {
 			SelectableObject selectedObject = selectedObjects [i];
 			panel.SelectedPanels [i].gameObject.SetActive (true);
 			panel.SelectedPanels [i].Name.text = selectedObject.Name;
-			panel.SelectedPanels [i].CurrentCamera = selectedObject.DisplayCamera;
-
-			panel.SelectedPanels [i].CurrentCamera.targetTexture = panel.SelectedPanels [i].RenderTexture;
+			panel.SelectedPanels [i].Image.sprite = selectedObject.UnitStats.UnitClass.Sprite;
 		}
 	}
 
@@ -129,6 +124,9 @@ public class UISelectionController : Singleton<UISelectionController> {
 		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 		panel.RenderTexture = newRenderTexture;
 		panel.Name.text = buildingInformation.BuildingName.ToString();
+		if(panel.CurrentCamera != null)
+			panel.CurrentCamera.gameObject.SetActive (false);
+		building.Camera.gameObject.SetActive (true);
 		panel.CurrentCamera = building.Camera;
 		panel.CurrentCamera.targetTexture = newRenderTexture;
 		panel.Health.text = building.HitPoints + " / " + buildingInformation.HitPoints;
@@ -152,6 +150,9 @@ public class UISelectionController : Singleton<UISelectionController> {
 		RenderTexture newRenderTexture = Instantiate (renderTexturePrefab);
 		panel.RenderTexture = newRenderTexture;
 		panel.Name.text = resource.ResourceName;
+		if(panel.CurrentCamera != null)
+			panel.CurrentCamera.gameObject.SetActive (false);
+		resource.Camera.gameObject.SetActive (true);
 		panel.CurrentCamera = resource.Camera;
 		panel.CurrentCamera.targetTexture = newRenderTexture;
 		panel.Health.text = resource.CurrentResources + " / " + resource.MaximumResources + " (" + resource.ResourceType + ")";

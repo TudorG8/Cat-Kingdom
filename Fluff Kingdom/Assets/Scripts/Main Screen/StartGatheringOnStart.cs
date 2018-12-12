@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StartGatheringOnStart : MonoBehaviour {
-	[SerializeField] ResourceGathering resourceGathering;
+	[SerializeField] ResourceGatheringModule resourceGathering;
 	[SerializeField] Resource resource;
 
 	void Start() {

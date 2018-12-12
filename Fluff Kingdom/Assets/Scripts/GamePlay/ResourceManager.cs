@@ -49,4 +49,8 @@ public class ResourceManager : Singleton<ResourceManager> {
 
 		return nextClosest;
 	}
+
+	public List<Resource> GetAllOfType(ResourceType type) {
+		return resourceDict [type];
+	}
 }

@@ -28,8 +28,11 @@ public class UIActionPanel : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetKeyDown (KeyCode.A)) {
+			SelectAttack ();
+		}
 		if ((Input.GetMouseButtonDown (0) || Input.GetMouseButtonDown (1)) && currentAction != Action.None) {
-			CommandGiver.Instance.ExecuteClickCommand ();
+			CommandGiver.Instance.ExecuteClickCommand (currentAction);
 			currentAction = Action.None;
 			Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 		}

@@ -174,7 +174,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1885912646694760}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.802048, y: -0.024290562, z: 2.0291443}
+  m_LocalPosition: {x: -14, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4818586452664212}
@@ -484,7 +484,7 @@ MonoBehaviour:
   resourceType: 0
   obj: {fileID: 1569537865152568, guid: eb62fed17808c9f42a3919b7a46dd62e, type: 2}
   tiles: 2
-  maximumResources: 5
+  maximumResources: 40
   camera: {fileID: 20652550464518322}
   progressBarUpdater: {fileID: 114589073697857912}
   textEmitter: {fileID: 114003363316667316}

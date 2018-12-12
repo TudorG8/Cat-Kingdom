@@ -15,6 +15,7 @@ MonoBehaviour:
   description: Provides vision in a range around it.
   maximumWorkers: 0
   tiles: 2
+  hitPoints: 200
   constructionTime: 5
   prefab: {fileID: 1238205287635340, guid: 1e3c9404da825734d8bc59070c48bced, type: 2}
   materials:

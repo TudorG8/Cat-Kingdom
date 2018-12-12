@@ -15,8 +15,11 @@ MonoBehaviour:
   description: Allows you to select the number of warriors, spearman and archers.
   maximumWorkers: 0
   tiles: 6
+  hitPoints: 400
   constructionTime: 5
   prefab: {fileID: 1926136749526140, guid: 707ea541d918cd040a13e7a9fce2463b, type: 2}
   materials:
   - type: Wood
-    cost: 20
+    cost: 50
+  - type: Stone
+    cost: 50

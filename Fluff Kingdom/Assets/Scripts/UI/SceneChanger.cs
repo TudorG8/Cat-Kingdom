@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChanger : MonoBehaviour {
+public class SceneChanger : Singleton<SceneChanger> {
 	[SerializeField] UIFade uiFade;
 
 	public void LoadLevelOne () {
@@ -24,14 +24,21 @@ public class SceneChanger : MonoBehaviour {
 
 	IEnumerator LoadLevelAfterDelay(string scene, float delay) {
 		yield return new WaitForSeconds (delay);
+		Time.timeScale = 1;
 		SceneManager.LoadScene (scene);
+	}
+
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+		if(uiFade != null)
+			uiFade.FadeFrom ();
 	}
 
 	void Awake() {
 		DontDestroyOnLoad (this);
 
-		if (FindObjectsOfType<SceneChanger> ().Length > 1) {
-			Destroy (gameObject);
-		}
+		InitiateSingleton ();
+
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 }

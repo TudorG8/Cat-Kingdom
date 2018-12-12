@@ -15,8 +15,9 @@ MonoBehaviour:
   description: Provides a gathering spot for food.
   maximumWorkers: 0
   tiles: 4
+  hitPoints: 200
   constructionTime: 5
   prefab: {fileID: 1288991505112186, guid: 10eff677eb165984290ca7b961b6e9e6, type: 2}
   materials:
   - type: Wood
-    cost: 20
+    cost: 25

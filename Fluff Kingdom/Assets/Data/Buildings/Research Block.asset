@@ -15,6 +15,7 @@ MonoBehaviour:
   description: Allows research to be made.
   maximumWorkers: 0
   tiles: 6
+  hitPoints: 500
   constructionTime: 5
   prefab: {fileID: 1839814812753328, guid: bf47c679fb025254783a522d8d142e8a, type: 2}
   materials:

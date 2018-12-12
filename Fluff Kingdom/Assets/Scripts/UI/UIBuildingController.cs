@@ -9,6 +9,7 @@ public class UIBuildingController : MonoBehaviour {
 	[SerializeField] GameObject toolTip;
 	[SerializeField] GameObject woodCost;
 	[SerializeField] GameObject stoneCost;
+	[SerializeField] GameObject foodCost;
 	[SerializeField] Transform buildingPanel;
 	[SerializeField] Transform tooltipPanel;
 	[SerializeField] LayerMask rayMask;
@@ -38,6 +39,7 @@ public class UIBuildingController : MonoBehaviour {
 
 			int woodCostAmount  = recipe.GetCost ("Wood");
 			int stoneCostAmount = recipe.GetCost ("Stone");
+			int foodCostAmount = recipe.GetCost ("Food");
 			if (woodCostAmount != -1) {
 				GameObject woodCostObj = Instantiate (woodCost, tooltipPanel.position, woodCost.transform.rotation);
 				scale = woodCostObj.transform.localScale;
@@ -56,6 +58,16 @@ public class UIBuildingController : MonoBehaviour {
 				UIText textScript = stoneCostObj.GetComponent<UIText> ();
 				textScript.Text.text = stoneCostAmount.ToString();
 			}
+			if (foodCostAmount != -1) {
+				GameObject foodCostObj = Instantiate (foodCost, tooltipPanel.position, foodCost.transform.rotation);
+				scale = foodCostObj.transform.localScale;
+				foodCostObj.transform.SetParent (tooltipScript.Costs);
+				foodCostObj.transform.localScale = scale;
+
+				UIText textScript = foodCostObj.GetComponent<UIText> ();
+				textScript.Text.text = foodCostAmount.ToString();
+			}
+
 
 			BuildingPanel buildingPanelScript = newPanel.GetComponent<BuildingPanel> ();
 			buildingPanelScript.Image.sprite = Sprite.Create(texture, new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f), 100.0f);
@@ -80,7 +92,9 @@ public class UIBuildingController : MonoBehaviour {
 
 	void Update() {
 		for (int i = 0; i < panels.Count; i++) {
-			if (UIResourceManager.Instance.Wood < panels [i].Recipe.GetCost("Wood")) {
+			if (UIResourceManager.Instance.Wood  < panels [i].Recipe.GetCost("Wood") || 
+				UIResourceManager.Instance.Stone < panels [i].Recipe.GetCost("Stone") ||
+				UIResourceManager.Instance.Food < panels [i].Recipe.GetCost("Food")) {
 				panels [i].Image.color = Color.red;
 			} 
 			else {

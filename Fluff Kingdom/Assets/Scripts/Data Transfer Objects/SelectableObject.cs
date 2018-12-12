@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SelectableObject : MonoBehaviour {
 	[SerializeField] GameObject selectionBase;
@@ -9,7 +10,30 @@ public class SelectableObject : MonoBehaviour {
 	[SerializeField] Indicator indicator;
 	[SerializeField] UnitStats unitStats;
 	[SerializeField] bool canBeSelected = true;
+	[SerializeField] Side side;
+	[SerializeField] UnityEvent onDeath;
+	[SerializeField] AttackableUnit attackableUnit;
 
+	[SerializeField] TextEmitter textEmitter;
+	[SerializeField] ProgressBarUpdater progressBarUpdater;
+
+	public AttackableUnit AttackableUnit {
+		get {
+			return this.attackableUnit;
+		}
+		set {
+			attackableUnit = value;
+		}
+	}
+
+	public Side Side {
+		get {
+			return this.side;
+		}
+		set {
+			side = value;
+		}
+	}
 
 	public GameObject SelectionBase {
 		get {
@@ -60,15 +84,25 @@ public class SelectableObject : MonoBehaviour {
 		indicator = null;
 	}
 
+	void Update() {
+		textEmitter.Val = unitStats.CurrentHitPoints + " / " + unitStats.UnitClass.HitPoints;
+		progressBarUpdater.UpdateToValue ((float)unitStats.CurrentHitPoints / unitStats.UnitClass.HitPoints);
+	}
+
 	public void StopCurrentAction() {
-		UnitMovement movementModule = GetComponent<UnitMovement> ();
+		MovementModule movementModule = GetComponent<MovementModule> ();
 		if (movementModule != null ) {
 			movementModule.StopMoving ();
 		}
 
-		ResourceGathering gatheringModule = GetComponent<ResourceGathering> ();
+		ResourceGatheringModule gatheringModule = GetComponent<ResourceGatheringModule> ();
 		if (gatheringModule != null && gatheringModule.IsGathering) {
 			gatheringModule.Reset ();
+		}
+
+		AttackModule attackModule = GetComponent<AttackModule> ();
+		if (attackModule != null) {
+			attackModule.Reset ();
 		}
 
 		DisconnectIndicator ();
@@ -95,6 +129,18 @@ public class SelectableObject : MonoBehaviour {
 	}
 
 	public void Deselect() {
-		selectionBase.SetActive (false);
+		if(selectionBase) 
+			selectionBase.SetActive (false);
+	}
+
+	public void TakeDamage(int damage) {
+		unitStats.CurrentHitPoints -= damage;
+
+		if (unitStats.CurrentHitPoints == 0) {
+			if (side == Side.Ally) {
+				UnitSelection.Instance.Workers.Remove (this);
+			} 
+			onDeath.Invoke ();
+		}
 	}
 }

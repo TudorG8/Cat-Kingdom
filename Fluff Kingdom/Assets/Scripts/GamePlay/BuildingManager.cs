@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class BuildingManager : Singleton<BuildingManager> {
 	[SerializeField] List<Building> buildings;
+	[SerializeField] Building castle;
+
+	public Building Castle {
+		get {
+			return this.castle;
+		}
+		set {
+			castle = value;
+		}
+	}
 
 	public List<Building> Buildings {
 		get {
@@ -32,5 +42,14 @@ public class BuildingManager : Singleton<BuildingManager> {
 
 	void Awake() {
 		InitiateSingleton ();
+	}
+
+	void Start() {
+		for (int i = 0; i < buildings.Count; i++) {
+			if (buildings [i].Recipe.BuildingName == BuildingType.Castle) {
+				this.castle = buildings [i];
+				break;
+			}
+		}
 	}
 }

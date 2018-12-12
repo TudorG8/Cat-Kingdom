@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1948118798559162
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1948118798559162}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: -5}
+  m_LocalPosition: {x: -12, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4965115568144332}
@@ -438,7 +438,7 @@ MonoBehaviour:
   resourceType: 2
   obj: {fileID: 1320749931333768, guid: c4ee8af0fd31e324da73446aa48b0dc1, type: 2}
   tiles: 2
-  maximumResources: 200
+  maximumResources: 100
   camera: {fileID: 20798452922718490}
   progressBarUpdater: {fileID: 114692715076503136}
   textEmitter: {fileID: 114965976397416388}
