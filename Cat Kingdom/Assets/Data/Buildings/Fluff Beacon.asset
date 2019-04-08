@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2482bef7df5a4bf4d801a6fbe714f66b, type: 3}
+  m_Name: Fluff Beacon
+  m_EditorClassIdentifier: 
+  buildingName: 7
+  description: Provides vision in a range around it.
+  maximumWorkers: 0
+  tiles: 2
+  hitPoints: 200
+  constructionTime: 5
+  prefab: {fileID: 1238205287635340, guid: 1e3c9404da825734d8bc59070c48bced, type: 2}
+  materials:
+  - type: Wood
+    cost: 50

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6d3f795ff6933449257cb6db1b0d8d, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: 
+  className: 1
+  minDamage: 10
+  maxDamage: 15
+  hitPoints: 120
+  sprite: {fileID: 21300000, guid: 4773b8696f15fa5448a2c1b8f3c79f4c, type: 3}
+  mainHand: {fileID: 1180875723890198, guid: d7a5eba96ca78fb4daaf3688aa468117, type: 2}
+  offHand: {fileID: 1274405391561176, guid: 48d2eea89d4af344f8bf578899151de3, type: 2}
+  back: {fileID: 1195039479879612, guid: 817b2fd47ad281242b22e5d8a52d5c19, type: 2}
+  hat: {fileID: 1203155560094504, guid: 883206b27fa7c9b4d8ae1414b9893f34, type: 2}
+  range: 1.5
+  animator: {fileID: 9100000, guid: bcde2132b68ff7b4fb84212633acc405, type: 2}
